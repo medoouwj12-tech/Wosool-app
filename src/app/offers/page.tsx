@@ -33,123 +33,117 @@ import Footer from "@/components/Footer";
 
 const PACKAGES = [
   {
-    id: "economy-plus",
+    id: "fiat-comfort",
     icon: <Zap className="w-5 h-5" />,
     badge: "الأكثر طلباً",
     badgeColor: "bg-amber-500 text-black",
-    name: "باقة الاقتصادية بلس",
-    nameEn: "Economy Plus Package",
-    price: 1799,
-    originalPrice: 2100,
-    discount: "15%",
-    discountLabel: "خصم",
-    description: "رحلة مريحة بسيارة كورولا أو سيراتو حديثة من الإسكندرية إلى القاهرة",
-    descriptionEn: "Comfortable ride in a modern Corolla or Cerato from Alexandria to Cairo",
+    name: "باقة فيات تيبو كومفورت",
+    nameEn: "Fiat Tipo Comfort Package",
+    tagline: "سيدان إيطالية راقية للمشاوير والمطارات",
+    taglineEn: "Elegant Italian sedan for airport & city commutes",
+    description: "رحلة مريحة وهادئة بسيارة فيات تيبو موديل حديث مع سائق محترف وتكييف ممتاز",
+    descriptionEn: "Quiet, smooth ride in a modern Fiat Tipo with professional chauffeur and high AC",
     features: [
-      "سيارة كورولا أو سيراتو 2023/2024",
-      "سائق محترف ملتزم بالمواعيد",
-      "مياه معدنية + شاحن هاتف مجاني",
-      "أسعار شاملة البنزين والكارتات",
-      "تأمين شامل على الرحلة",
+      "سيارة فيات تيبو موديل حديث معقمة بالكامل",
+      "سائق محترف وملتزم بالمواعيد 100%",
+      "مياه معدنية وشواحن هواتف مجانية",
+      "شاملة رسوم الطرق والكارتات وبنزين الرحلة",
+      "خدمة من الباب للباب بدون أي انتظار",
     ],
     color: "from-amber-500/10 to-amber-600/5",
     borderColor: "border-amber-500/30",
     accentColor: "text-amber-400",
-    whatsappMsg: "مرحباً، أريد الحجز في *باقة الاقتصادية بلس* بسعر 1799 جنيه. هل هي متاحة؟",
+    whatsappMsg: "مرحباً، أريد الاستفسار عن حجز *باقة فيات تيبو كومفورت*. ما هي التفاصيل المتاحة؟",
   },
   {
-    id: "business-vip",
+    id: "mg-vip",
     icon: <Crown className="w-5 h-5" />,
-    badge: "الأكثر قيمة",
+    badge: "الأكثر تميزاً",
     badgeColor: "bg-gold-500 text-black",
-    name: "باقة رجال الأعمال VIP",
-    nameEn: "Business VIP Package",
-    price: 2850,
-    originalPrice: 3400,
-    discount: "16%",
-    discountLabel: "خصم",
-    description: "رحلة احترافية بمرسيدس E-Class مع سائق بزي رسمي وخدمات VIP مميزة",
-    descriptionEn: "Professional Mercedes E-Class ride with uniformed chauffeur and premium VIP services",
+    name: "باقة إم جي ZS العائلية VIP",
+    nameEn: "MG ZS Family VIP Package",
+    tagline: "SUV عائلية مرتفعة وواسعة للحقائب",
+    taglineEn: "High-clearance family SUV with large luggage boot",
+    description: "مساحة واسعة وراحة مطلقة لك ولعائلتك مع شنطة كبيرة تتسع لحقائب السفر",
+    descriptionEn: "Expansive cabin and absolute comfort for family trips with generous luggage capacity",
     features: [
-      "مرسيدس E-Class فاخرة موديل حديث",
-      "سائق بزي رسمي (بدلة وكرافتة)",
-      "واي فاي مجاني داخل السيارة",
-      "استقبال بلافتة ترحيبية بالمطار",
-      "ضيافة كاملة (مياه - عصير - سناك)",
+      "سيارة إم جي ZS فئة SUV حديثة وفاخرة",
+      "شنطة سفر كبيرة تتسع للحقائب الكبيرة",
+      "تكييف هواء فائق البرودة لجميع الركاب",
+      "استقبال خاص من المطار أو من باب منزلك",
+      "متابعة دورية للرحلة حتى الوصول بسلامة",
     ],
     color: "from-gold-500/15 to-gold-600/5",
     borderColor: "border-gold-500/40",
     accentColor: "text-gold-400",
-    whatsappMsg: "مرحباً، أريد الحجز في *باقة رجال الأعمال VIP* بسعر 2850 جنيه. هل هي متاحة؟",
+    whatsappMsg: "مرحباً، أريد الاستفسار عن حجز *باقة إم جي ZS العائلية VIP*. ما هي التفاصيل المتاحة؟",
     featured: true,
   },
   {
-    id: "family-group",
+    id: "roundtrip-saver",
     icon: <Users className="w-5 h-5" />,
-    badge: "للعائلات",
+    badge: "وفر في المشوار",
     badgeColor: "bg-emerald-600 text-white",
-    name: "باقة العائلة والمجموعات",
-    nameEn: "Family & Group Package",
-    price: 2299,
-    originalPrice: 2800,
-    discount: "18%",
-    discountLabel: "خصم",
-    description: "هيونداي H1 فان فاخر يتسع لـ 7 أفراد مع حقائبهم بسعر موحد مريح",
-    descriptionEn: "Luxury Hyundai H1 van accommodating 7 passengers with full luggage at a unified price",
+    name: "باقة الذهاب والعودة المخفضة",
+    nameEn: "Round-Trip Saver Package",
+    tagline: "خصم خاص عند حجز الذهاب والعودة معاً",
+    taglineEn: "Special discount when booking round-trip together",
+    description: "احجز رحلتك ذهاب وعودة واستمتع بانتظار مجاني وخصم إضافي خاص على الإجمالي",
+    descriptionEn: "Book your round trip with complimentary waiting hours and special packaged discount",
     features: [
-      "هيونداي H1 رويال 7 راكب + حقائب",
-      "مقاعد جلد كابتن مريحة لكل الأفراد",
-      "تكييف مركزي قوي جداً",
-      "شاشة ترفيهية + شواحن USB متعددة",
-      "حجز آمن مسبق لتجنب الانتظار",
+      "خصم خاص وتوفير على رحلة العودة",
+      "ساعات انتظار مجانية حسب الاتفاق",
+      "نفس السائق والسيارة لراحتك وأمانك",
+      "مرونة في تعديل موعد رحلة العودة",
+      "تأكيد فوري بدون أي مصاريف إضافية",
     ],
     color: "from-emerald-500/10 to-emerald-600/5",
     borderColor: "border-emerald-500/30",
     accentColor: "text-emerald-400",
-    whatsappMsg: "مرحباً، أريد الحجز في *باقة العائلة والمجموعات* بسعر 2299 جنيه. هل هي متاحة؟",
+    whatsappMsg: "مرحباً، أريد الاستفسار عن *باقة الذهاب والعودة المخفضة*. أحتاج رحلة ذهاب وعودة.",
   },
 ];
 
 const SPECIAL_OFFERS = [
   {
     icon: <Plane className="w-5 h-5 text-blue-400" />,
-    title: "عرض مطار القاهرة الدولي",
-    titleEn: "Cairo International Airport",
-    desc: "استقبال وتوديع مع سائق VIP وضمان المواعيد",
-    discount: "خصم 20%",
-    validity: "طوال الأسبوع",
+    title: "عرض مطار القاهرة ومطار برج العرب",
+    titleEn: "Cairo & Borg El Arab Airports",
+    desc: "استقبال وتوديع على مدار 24 ساعة مع متابعة مواعيد الطيران",
+    benefit: "خدمة VIP ومتابعة طيران",
+    validity: "متاح يومياً 24/7",
     color: "border-blue-500/30 bg-blue-500/5",
-    whatsappMsg: "أريد الاستفسار عن *عرض مطار القاهرة الدولي* مع خصم 20%. الرجاء التواصل.",
+    whatsappMsg: "أريد الاستفسار عن *عرض رحلات المطارات*. الرجاء تزويدي بالتفاصيل.",
   },
   {
     icon: <Building2 className="w-5 h-5 text-purple-400" />,
-    title: "باقة الشركات والمؤتمرات",
-    titleEn: "Corporate & Conferences",
-    desc: "عقود سنوية للشركات مع خصومات خاصة ورحلات مجدولة",
-    discount: "خصم حتى 30%",
-    validity: "بالاتفاق المسبق",
+    title: "باقة الشركات والمشاوير الرسمية",
+    titleEn: "Corporate & Business Accounts",
+    desc: "فواتير معتمدة وسائقين محترفين للزيارات الرسمية والاجتماعات",
+    benefit: "أسعار خاصة للتعاقدات",
+    validity: "للمؤسسات والشركات",
     color: "border-purple-500/30 bg-purple-500/5",
-    whatsappMsg: "أريد الاستفسار عن *باقة الشركات والمؤتمرات*. شركتي تحتاج رحلات منتظمة.",
+    whatsappMsg: "أريد الاستفسار عن *باقة الشركات والمشاوير الرسمية*. شركتنا تحتاج رحلات منتظمة.",
   },
   {
     icon: <Heart className="w-5 h-5 text-rose-400" />,
-    title: "رحلات الأعراس والمناسبات",
+    title: "المناسبات الخاصة والأفراح",
     titleEn: "Weddings & Special Events",
-    desc: "تزيين السيارة وخدمات VIP للمناسبات الخاصة والأعراس",
-    discount: "عروض خاصة",
+    desc: "سيارات معقمة ومجهزة لمناسباتك السعيدة مع سائق راقٍ بزي أنيق",
+    benefit: "تجهيز خاص للمناسبة",
     validity: "بالحجز المسبق",
     color: "border-rose-500/30 bg-rose-500/5",
-    whatsappMsg: "أريد الاستفسار عن *رحلات الأعراس والمناسبات الخاصة*. ما هي تفاصيل العروض؟",
+    whatsappMsg: "أريد الاستفسار عن *رحلات المناسبات الخاصة والأفراح*. ما هي التجهيزات المتاحة؟",
   },
   {
     icon: <GraduationCap className="w-5 h-5 text-cyan-400" />,
     title: "عروض الطلاب والجامعات",
-    titleEn: "Student & University Offers",
-    desc: "أسعار مخفضة خاصة لطلاب الجامعات المتنقلين بين الإسكندرية والقاهرة",
-    discount: "خصم 12%",
-    validity: "بالكارنيه الجامعي",
+    titleEn: "Student & University Trips",
+    desc: "مساعدة طلاب الجامعات في السفر الآمن بين الإسكندرية والمحافظات",
+    benefit: "تخفيض خاص بالبطاقة الجامعية",
+    validity: "طوال العام الدراسي",
     color: "border-cyan-500/30 bg-cyan-500/5",
-    whatsappMsg: "أريد الاستفسار عن *عروض الطلاب والجامعات* مع خصم 12%. لدي كارنيه جامعي.",
+    whatsappMsg: "أريد الاستفسار عن *عروض الطلاب والجامعات*. أنا طالب وأريد حجز رحلة.",
   },
 ];
 
@@ -158,7 +152,7 @@ const LOYALTY_TIERS = [
     name: "برونزي",
     nameEn: "Bronze",
     trips: "5 رحلات",
-    benefit: "خصم 5% دائم",
+    benefit: "أولوية حجز",
     color: "from-amber-700/20 to-amber-800/10 border-amber-700/40 text-amber-600",
     icon: "🥉",
   },
@@ -166,7 +160,7 @@ const LOYALTY_TIERS = [
     name: "فضي",
     nameEn: "Silver",
     trips: "15 رحلة",
-    benefit: "خصم 10% + أولوية حجز",
+    benefit: "خصم خاص دائم",
     color: "from-gray-400/20 to-gray-500/10 border-gray-400/40 text-gray-300",
     icon: "🥈",
   },
@@ -174,7 +168,7 @@ const LOYALTY_TIERS = [
     name: "ذهبي",
     nameEn: "Gold",
     trips: "30 رحلة",
-    benefit: "خصم 15% + ترقية مجانية",
+    benefit: "ترقية مجانية",
     color: "from-gold-500/20 to-gold-600/10 border-gold-500/40 text-gold-300",
     icon: "🥇",
   },
@@ -182,7 +176,7 @@ const LOYALTY_TIERS = [
     name: "VIP بلاتيني",
     nameEn: "Platinum VIP",
     trips: "50 رحلة+",
-    benefit: "خصم 20% + سيارة مرسيدس دائماً",
+    benefit: "خدمات حصرية وسائق مخصص",
     color: "from-violet-500/20 to-violet-600/10 border-violet-500/40 text-violet-300",
     icon: "💎",
   },
@@ -223,9 +217,9 @@ export default function OffersPage() {
               className="text-2xl sm:text-4xl font-black text-white leading-tight"
             >
               {language === "ar" ? (
-                <>وفّر أكثر مع <span className="gold-text-gradient">باقات وصول</span> المميزة</>
+                <>باقات سفر مميزة مع <span className="gold-text-gradient">وصول ليموزين</span></>
               ) : (
-                <>Save More with <span className="gold-text-gradient">Wosool</span> Premium Packages</>
+                <>Premium Travel Packages with <span className="gold-text-gradient">Wosool</span></>
               )}
             </motion.h1>
 
@@ -236,8 +230,8 @@ export default function OffersPage() {
               className="mt-2 text-xs sm:text-sm text-gray-400 leading-relaxed"
             >
               {language === "ar"
-                ? "اكتشف أفضل عروضنا وباقاتنا لرحلات الإسكندرية - القاهرة ومختلف محافظات مصر"
-                : "Discover our best packages for Alexandria–Cairo routes and all Egyptian governorates"}
+                ? "اختر الباقة الأنسب لمشوارك واستمتع بأعلى مستويات الراحة والأمان"
+                : "Choose the best package for your trip and enjoy the highest standard of luxury and safety"}
             </motion.p>
 
             {/* Quick Stats */}
@@ -249,17 +243,17 @@ export default function OffersPage() {
             >
               <span className="flex items-center gap-1">
                 <Star className="w-3 h-3 text-amber-400 fill-amber-400" />
-                <span>4.9/5 تقييم</span>
+                <span>5.0 تقييم العملاء</span>
               </span>
               <span className="w-1 h-1 rounded-full bg-gray-600" />
               <span className="flex items-center gap-1">
                 <Shield className="w-3 h-3 text-emerald-400" />
-                <span>ضمان أفضل سعر</span>
+                <span>أمان وراحة تامة</span>
               </span>
               <span className="w-1 h-1 rounded-full bg-gray-600" />
               <span className="flex items-center gap-1">
                 <Clock className="w-3 h-3 text-gold-400" />
-                <span>24/7 خدمة</span>
+                <span>خدمة 24/7</span>
               </span>
             </motion.div>
           </div>
@@ -270,7 +264,7 @@ export default function OffersPage() {
           <div className="flex items-center gap-2 mb-4">
             <Tag className="w-4 h-4 text-gold-400" />
             <h2 className="text-base sm:text-lg font-black text-white">
-              {language === "ar" ? "باقاتنا الأساسية" : "Our Core Packages"}
+              {language === "ar" ? "باقاتنا المميزة" : "Our Featured Packages"}
             </h2>
           </div>
 
@@ -289,7 +283,7 @@ export default function OffersPage() {
                 {pkg.featured && (
                   <div className="absolute -top-2.5 left-1/2 -translate-x-1/2">
                     <span className="bg-gradient-to-r from-gold-500 to-gold-400 text-black text-[10px] font-black px-3 py-0.5 rounded-full shadow">
-                      ⭐ {language === "ar" ? "الأكثر قيمة" : "Best Value"}
+                      ⭐ {language === "ar" ? "الأكثر طلباً" : "Most Popular"}
                     </span>
                   </div>
                 )}
@@ -309,22 +303,6 @@ export default function OffersPage() {
                 <p className="text-[10px] text-gray-400 mb-3 leading-relaxed">
                   {language === "ar" ? pkg.description : pkg.descriptionEn}
                 </p>
-
-                {/* Price */}
-                <div className="mb-3">
-                  <div className="flex items-center gap-2">
-                    <span className={`text-xl font-black ${pkg.accentColor} font-mono`}>
-                      {pkg.price.toLocaleString("ar-EG")} ج.م
-                    </span>
-                    <span className="text-[10px] line-through text-gray-500 font-mono">
-                      {pkg.originalPrice.toLocaleString("ar-EG")}
-                    </span>
-                    <span className="text-[9px] bg-red-500/20 text-red-400 border border-red-500/30 px-1.5 py-0.2 rounded font-bold">
-                      {pkg.discountLabel} {pkg.discount}
-                    </span>
-                  </div>
-                  <span className="text-[9px] text-gray-500">{language === "ar" ? "للرحلة الواحدة ذهاب" : "per one-way trip"}</span>
-                </div>
 
                 {/* Features */}
                 <ul className="space-y-1.5 mb-4">
@@ -361,7 +339,7 @@ export default function OffersPage() {
           <div className="flex items-center gap-2 mb-4">
             <Gift className="w-4 h-4 text-gold-400" />
             <h2 className="text-base sm:text-lg font-black text-white">
-              {language === "ar" ? "عروض خاصة ومواسمية" : "Special & Seasonal Offers"}
+              {language === "ar" ? "عروض وتسهيلات خاصة" : "Special Facilities & Offers"}
             </h2>
           </div>
 
@@ -383,7 +361,7 @@ export default function OffersPage() {
                       {language === "ar" ? offer.title : offer.titleEn}
                     </h3>
                     <span className="text-[9px] bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-1.5 py-0.2 rounded font-bold whitespace-nowrap flex-shrink-0">
-                      {offer.discount}
+                      {offer.benefit}
                     </span>
                   </div>
                   <p className="text-[10px] text-gray-400 mb-2 leading-relaxed">{offer.desc}</p>
@@ -396,7 +374,7 @@ export default function OffersPage() {
                       onClick={() => openWhatsApp(offer.whatsappMsg)}
                       className="text-[10px] font-bold text-gold-300 hover:text-gold-200 flex items-center gap-0.5 transition-colors"
                     >
-                      <span>{language === "ar" ? "اطلب العرض" : "Get Offer"}</span>
+                      <span>{language === "ar" ? "اطلب التفاصيل" : "Inquire"}</span>
                       <ArrowIcon className="w-3 h-3" />
                     </button>
                   </div>
@@ -412,13 +390,13 @@ export default function OffersPage() {
             <div className="flex items-center gap-2 mb-2">
               <Crown className="w-5 h-5 text-gold-400" />
               <h2 className="text-base sm:text-lg font-black text-white">
-                {language === "ar" ? "برنامج الولاء — وصول Crown" : "Loyalty Program — Wosool Crown"}
+                {language === "ar" ? "برنامج عملاء وصول الدائمين" : "Wosool Frequent Traveler Program"}
               </h2>
             </div>
             <p className="text-[11px] text-gray-400 mb-4">
               {language === "ar"
-                ? "كل رحلة تقربك من مزايا أكبر وخصومات أعلى. اجمع رحلاتك وارتقِ بمستواك!"
-                : "Every trip earns you more benefits. Collect trips and upgrade your tier!"}
+                ? "كلما زادت رحلاتك معنا، زادت المزايا والأولوية في الحجز والخدمات الحصرية"
+                : "The more you travel with us, the higher priority and exclusive amenities you receive"}
             </p>
 
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
@@ -439,11 +417,11 @@ export default function OffersPage() {
             </div>
 
             <button
-              onClick={() => openWhatsApp("مرحباً، أريد الاستفسار عن *برنامج الولاء وصول Crown* وكيفية الانضمام.")}
+              onClick={() => openWhatsApp("مرحباً، أريد الاستفسار عن *برنامج عملاء وصول الدائمين* وكيفية الاستفادة منه.")}
               className="mt-4 w-full gold-btn py-2.5 rounded-xl font-black text-xs flex items-center justify-center gap-2 touch-press"
             >
               <Sparkles className="w-3.5 h-3.5" />
-              <span>{language === "ar" ? "انضم لبرنامج الولاء الآن" : "Join Loyalty Program Now"}</span>
+              <span>{language === "ar" ? "تواصل للاستفسار عن المزايا" : "Inquire About Member Benefits"}</span>
             </button>
           </div>
         </section>
@@ -453,15 +431,15 @@ export default function OffersPage() {
           <div className="rounded-xl bg-gradient-to-r from-emerald-500/10 via-transparent to-gold-500/10 border border-white/5 p-3 flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-[10px] sm:text-xs text-gray-400">
             <span className="flex items-center gap-1.5">
               <Shield className="w-3.5 h-3.5 text-emerald-400" />
-              <span>{language === "ar" ? "ضمان أفضل سعر" : "Best Price Guarantee"}</span>
+              <span>{language === "ar" ? "أمان وراحة على الطريق" : "Safety & Highway Comfort"}</span>
             </span>
             <span className="flex items-center gap-1.5">
               <CheckCircle className="w-3.5 h-3.5 text-emerald-400" />
-              <span>{language === "ar" ? "إلغاء مجاني قبل 2 ساعة" : "Free Cancellation (2hr prior)"}</span>
+              <span>{language === "ar" ? "مرونة وإلغاء مجاني" : "Free Cancellation"}</span>
             </span>
             <span className="flex items-center gap-1.5">
               <Clock className="w-3.5 h-3.5 text-gold-400" />
-              <span>{language === "ar" ? "رد خلال دقيقتين" : "Reply in 2 Minutes"}</span>
+              <span>{language === "ar" ? "رد سريع خلال دقيقتين" : "Reply in 2 Minutes"}</span>
             </span>
             <span className="flex items-center gap-1.5">
               <Phone className="w-3.5 h-3.5 text-gold-400" />

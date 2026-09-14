@@ -90,15 +90,13 @@ export default function PopularRoutes({ onSelectDestination }: PopularRoutesProp
             </div>
 
             <div className="mt-3 pt-2.5 border-t border-white/5 flex items-center justify-between">
-              <div>
-                <span className="text-[9px] text-gray-400 block">{t.routes.startingFrom}</span>
-                <span className="text-sm sm:text-base font-black text-white group-hover:text-gold-300 font-mono">
-                  {route.startingPrice.toLocaleString("ar-EG")} {t.routes.currency}
-                </span>
+              <div className="flex items-center gap-1.5 text-[11px] text-emerald-400 font-medium">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                <span>{language === "ar" ? "خدمة مباشرة من الباب للباب" : "Direct Door-to-Door"}</span>
               </div>
 
               <div className="flex items-center gap-1 text-xs font-bold text-gold-400 group-hover:translate-x-[-2px] transition-transform">
-                <span>{t.routes.bookRoute}</span>
+                <span>{language === "ar" ? "احجز المشوار" : "Book Route"}</span>
                 <ArrowIcon className="w-3 h-3" />
               </div>
             </div>

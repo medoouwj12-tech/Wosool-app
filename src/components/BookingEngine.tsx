@@ -16,6 +16,7 @@ import {
   ShieldCheck,
   AlertCircle,
   Flame,
+  Clock,
 } from "lucide-react";
 import WhatsAppIcon from "@/components/WhatsAppIcon";
 import { ALEXANDRIA_PICKUP_AREAS, DESTINATIONS } from "@/data/locations";
@@ -51,7 +52,7 @@ export default function BookingEngine({
   const [tripTime, setTripTime] = useState<string>("10:00");
   const [isImmediate, setIsImmediate] = useState<boolean>(false);
 
-  const [vehicleId, setVehicleId] = useState<string>(selectedVehicleId || "toyota-corolla");
+  const [vehicleId, setVehicleId] = useState<string>(selectedVehicleId || "mg-zs");
   const [clientName, setClientName] = useState<string>("");
   const [clientPhone, setClientPhone] = useState<string>("");
   const [flightOrNotes, setFlightOrNotes] = useState<string>("");
@@ -59,7 +60,9 @@ export default function BookingEngine({
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   useEffect(() => {
-    if (selectedVehicleId) setVehicleId(selectedVehicleId);
+    if (selectedVehicleId && FLEET.some((f) => f.id === selectedVehicleId)) {
+      setVehicleId(selectedVehicleId);
+    }
   }, [selectedVehicleId]);
 
   useEffect(() => {
@@ -68,19 +71,6 @@ export default function BookingEngine({
 
   const selectedDest = DESTINATIONS.find((d) => d.id === destinationId) || DESTINATIONS[0];
   const selectedCar = FLEET.find((f) => f.id === vehicleId) || FLEET[0];
-
-  const calculateFare = () => {
-    const baseRoutePrice = selectedDest.startingPrice;
-    const vehicleMultiplier = selectedCar.pricePerKmMultiplier;
-    let total = Math.round(baseRoutePrice * vehicleMultiplier);
-
-    if (tripType === "ذهاب وعودة") {
-      total = Math.round(total * 1.85);
-    }
-    return total;
-  };
-
-  const estimatedFare = calculateFare();
 
   const handleImmediateBookingToggle = () => {
     if (!isImmediate) {
@@ -101,11 +91,11 @@ export default function BookingEngine({
   const validateForm = () => {
     const newErrors: { name?: string; phone?: string } = {};
     if (!clientName.trim()) {
-      newErrors.name = t.booking.nameError;
+      newErrors.name = language === "ar" ? "يرجى كتابة اسمك" : "Please enter your name";
     }
     const cleanPhone = clientPhone.replace(/\s+/g, "").replace(/-/g, "");
     if (!cleanPhone || cleanPhone.length < 9) {
-      newErrors.phone = t.booking.phoneError;
+      newErrors.phone = language === "ar" ? "يرجى كتابة رقم هاتف صحيح للتواصل" : "Please enter a valid phone number";
     }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -136,12 +126,7 @@ export default function BookingEngine({
       ? `فوري الآن (${tripDate} ${tripTime})`
       : `${tripDate}`;
 
-    const combinedNotes = [
-      flightOrNotes.trim(),
-      `السعر التقديري للتطبيق: ${estimatedFare.toLocaleString("ar-EG")} ج.م تقريباً`,
-    ]
-      .filter(Boolean)
-      .join(" - ");
+    const notes = flightOrNotes.trim();
 
     try {
       saveBooking({
@@ -153,8 +138,8 @@ export default function BookingEngine({
         time: tripTime,
         tripType: tripType,
         selectedVehicle: selectedCar.name,
-        estimatedFare: estimatedFare,
-        notes: combinedNotes,
+        estimatedFare: 0,
+        notes: notes,
       });
     } catch {
       // ignore
@@ -169,58 +154,64 @@ export default function BookingEngine({
       time: tripTime,
       tripType: tripType,
       selectedVehicle: selectedCar.name,
-      notes: combinedNotes,
+      notes: notes,
     });
 
     setTimeout(() => {
       window.location.href = whatsappUrl;
       setIsSubmitting(false);
-    }, 900);
+    }, 800);
   };
 
   return (
-    <section id="booking-section" className="py-4 sm:py-6 px-3 sm:px-4 max-w-5xl mx-auto scroll-mt-16 sm:scroll-mt-20">
+    <section id="booking-section" className="py-4 sm:py-6 px-3 sm:px-4 max-w-4xl mx-auto scroll-mt-16 sm:scroll-mt-20">
       {/* Section Header */}
       <div className="text-center mb-4 sm:mb-6">
         <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-300 text-[11px] sm:text-xs font-semibold mb-1.5">
           <Sparkles className="w-3.5 h-3.5 text-gold-400" />
-          <span>{t.booking.badge}</span>
+          <span>{language === "ar" ? "حجز سريع ومباشر" : "Instant Direct Booking"}</span>
         </div>
         <h2 className="text-xl sm:text-3xl font-black text-white font-cairo">
-          {t.booking.title} <span className="gold-text-gradient">{t.booking.titleHighlight}</span>
+          {language === "ar" ? (
+            <>احجز رحلتك <span className="gold-text-gradient">بكل سهولة</span></>
+          ) : (
+            <>Book Your Trip <span className="gold-text-gradient">Effortlessly</span></>
+          )}
         </h2>
         <p className="text-[11px] sm:text-sm text-gray-400 mt-1 max-w-lg mx-auto">
-          {t.booking.subtitle}
+          {language === "ar"
+            ? "خطوات بسيطة — اختر مشوارك وسيارتك وسيتم التواصل معك وتأكيد حجزك فوراً"
+            : "Simple steps — pick your route and car, instant confirmation via WhatsApp"}
         </p>
       </div>
 
       {/* Main Glass Booking Panel */}
       <div className="glass-panel rounded-2xl p-3.5 sm:p-6 border border-gold-500/30 shadow-2xl relative">
-        {/* Step indicator pills */}
+        {/* Simple Step indicator */}
         <div className="flex items-center justify-between border-b border-border-subtle/80 pb-3 mb-4 text-[11px] sm:text-xs text-gray-400">
-          <div className="flex items-center gap-1 text-gold-300 font-bold">
-            <span className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-gold-500 text-black flex items-center justify-center text-[10px] sm:text-[11px] font-black">
+          <div className="flex items-center gap-1.5 text-gold-300 font-bold">
+            <span className="w-5 h-5 rounded-full bg-gold-500 text-black flex items-center justify-center text-[10px] font-black">
               1
             </span>
-            <span className="truncate">{t.booking.step1}</span>
+            <span>{language === "ar" ? "المشوار" : "Route"}</span>
           </div>
-          <span className="h-0.5 w-4 sm:w-8 bg-border-subtle" />
-          <div className="flex items-center gap-1 text-gold-300 font-bold">
-            <span className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-gold-500 text-black flex items-center justify-center text-[10px] sm:text-[11px] font-black">
+          <span className="h-0.5 w-6 sm:w-12 bg-border-subtle" />
+          <div className="flex items-center gap-1.5 text-gold-300 font-bold">
+            <span className="w-5 h-5 rounded-full bg-gold-500 text-black flex items-center justify-center text-[10px] font-black">
               2
             </span>
-            <span className="truncate">{t.booking.step2}</span>
+            <span>{language === "ar" ? "السيارة" : "Vehicle"}</span>
           </div>
-          <span className="h-0.5 w-4 sm:w-8 bg-border-subtle" />
-          <div className="flex items-center gap-1 text-gold-300 font-bold">
-            <span className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-gold-500 text-black flex items-center justify-center text-[10px] sm:text-[11px] font-black">
+          <span className="h-0.5 w-6 sm:w-12 bg-border-subtle" />
+          <div className="flex items-center gap-1.5 text-gold-300 font-bold">
+            <span className="w-5 h-5 rounded-full bg-gold-500 text-black flex items-center justify-center text-[10px] font-black">
               3
             </span>
-            <span className="truncate">{t.booking.step3}</span>
+            <span>{language === "ar" ? "بياناتك" : "Details"}</span>
           </div>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
+        <form onSubmit={handleSubmit} className="space-y-4">
           {/* Trip Type Toggle */}
           <div className="bg-surface-secondary/90 p-1 rounded-xl border border-border-subtle flex items-center">
             <button
@@ -232,21 +223,18 @@ export default function BookingEngine({
                   : "text-gray-300 hover:text-white"
               }`}
             >
-              <span>{t.booking.oneWay}</span>
+              <span>{language === "ar" ? "ذهاب فقط" : "One Way"}</span>
             </button>
             <button
               type="button"
               onClick={() => setTripType("ذهاب وعودة")}
-              className={`flex-1 py-2 sm:py-2.5 rounded-lg text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-1.5 relative ${
+              className={`flex-1 py-2 sm:py-2.5 rounded-lg text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-1.5 ${
                 tripType === "ذهاب وعودة"
                   ? "bg-gold-500 text-black shadow-gold-sm"
                   : "text-gray-300 hover:text-white"
               }`}
             >
-              <span>{t.booking.roundTrip}</span>
-              <span className="text-[9px] sm:text-[10px] bg-emerald-500 text-white font-black px-1.5 py-0.2 rounded shadow">
-                {t.booking.discountBadge}
-              </span>
+              <span>{language === "ar" ? "ذهاب وعودة" : "Round Trip"}</span>
             </button>
           </div>
 
@@ -257,10 +245,10 @@ export default function BookingEngine({
               <label className="flex items-center justify-between text-[11px] sm:text-xs font-bold text-gray-200">
                 <span className="flex items-center gap-1">
                   <MapPin className="w-3.5 h-3.5 text-gold-400" />
-                  <span>{t.booking.pickupLabel}</span>
+                  <span>{language === "ar" ? "نقطة الانطلاق (الإسكندرية)" : "Pickup (Alexandria)"}</span>
                 </span>
                 <span className="text-[9px] text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/30">
-                  {t.booking.doorstepBadge}
+                  {language === "ar" ? "من أمام باب منزلك" : "Door-to-door"}
                 </span>
               </label>
 
@@ -285,7 +273,7 @@ export default function BookingEngine({
                 type="text"
                 value={customPickupAddress}
                 onChange={(e) => setCustomPickupAddress(e.target.value)}
-                placeholder={t.booking.customAddressPlaceholder}
+                placeholder={language === "ar" ? "عنوانك بالتفصيل (اسم الشارع / علامة مميزة) - اختياري" : "Detailed address / Landmark (Optional)"}
                 className="w-full glass-input rounded-xl px-3 py-2 text-xs text-gray-200 placeholder-gray-500 focus:ring-1 focus:ring-gold-500"
               />
             </div>
@@ -295,10 +283,10 @@ export default function BookingEngine({
               <label className="flex items-center justify-between text-[11px] sm:text-xs font-bold text-gray-200">
                 <span className="flex items-center gap-1">
                   <Navigation className="w-3.5 h-3.5 text-emerald-400" />
-                  <span>{t.booking.destinationLabel}</span>
+                  <span>{language === "ar" ? "الوجهة" : "Destination"}</span>
                 </span>
                 <span className="text-[10px] text-gold-300 font-mono">
-                  {selectedDest.distanceKm} km
+                  {selectedDest.distanceKm} كم
                 </span>
               </label>
 
@@ -329,73 +317,74 @@ export default function BookingEngine({
               </div>
 
               <div className="flex items-center justify-between text-[10px] sm:text-[11px] text-gray-400 bg-surface-secondary/50 px-2.5 py-1 rounded-lg border border-white/5">
-                <span>{t.booking.approxTime} <strong className="text-gray-200">{selectedDest.estimatedHours}</strong></span>
-                <span>{t.booking.distance} <strong className="text-gray-200">{selectedDest.distanceKm} km</strong></span>
+                <span>الوقت التقديري: <strong className="text-gray-200">{selectedDest.estimatedHours}</strong></span>
+                <span>المسافة: <strong className="text-gray-200">{selectedDest.distanceKm} كم</strong></span>
               </div>
             </div>
           </div>
 
-          {/* Vehicle Selection - Mobile Touch Horizontal Swiper */}
-          <div className="space-y-1.5 pt-1">
-            <div className="flex items-center justify-between">
-              <label className="flex items-center gap-1 text-[11px] sm:text-xs font-bold text-gray-200">
+          {/* Vehicle Selection - Simple 2 Real Cars Grid */}
+          <div className="space-y-2 pt-1">
+            <label className="flex items-center justify-between text-[11px] sm:text-xs font-bold text-gray-200">
+              <span className="flex items-center gap-1">
                 <Car className="w-3.5 h-3.5 text-gold-400" />
-                <span>{t.booking.vehicleLabel}</span>
-              </label>
-              <span className="text-[10px] text-gold-300 font-medium">
-                (اسحب لاختيار السيارة ↔)
+                <span>{language === "ar" ? "اختر سيارتك المفضلة" : "Select Your Car"}</span>
               </span>
-            </div>
+              <span className="text-[10px] text-gold-300">
+                {language === "ar" ? "موديلات حديثة مكيفة" : "Modern Air-Conditioned"}
+              </span>
+            </label>
 
-            {/* Horizontal Swipable Car Carousel */}
-            <div className="flex gap-2 sm:gap-2.5 overflow-x-auto pb-2 scrollbar-none snap-x -mx-1 px-1">
+            <div className="grid grid-cols-2 gap-2.5 sm:gap-3.5">
               {FLEET.map((vehicle) => {
                 const isSelected = vehicle.id === vehicleId;
-                const carShortName = language === "ar"
-                  ? vehicle.name.replace(/\(.*?\)/g, "").trim()
-                  : vehicle.nameEn.split(" ")[0] + " " + (vehicle.nameEn.split(" ")[1] || "");
-
                 return (
                   <div
                     key={vehicle.id}
                     onClick={() => setVehicleId(vehicle.id)}
-                    className={`cursor-pointer flex-shrink-0 w-[145px] sm:w-[170px] snap-start rounded-xl p-2 transition-all duration-200 border text-right relative overflow-hidden ${
+                    className={`cursor-pointer rounded-2xl p-2.5 sm:p-3 transition-all duration-200 border relative overflow-hidden flex flex-col justify-between ${
                       isSelected
-                        ? "bg-gradient-to-b from-[#222234] to-[#14141e] border-gold-400 shadow-gold-sm ring-1 ring-gold-400/50"
-                        : "bg-surface/80 border-border-subtle hover:border-gray-600"
+                        ? "bg-gradient-to-b from-[#222234] to-[#14141e] border-gold-400 shadow-gold-sm ring-2 ring-gold-400/40"
+                        : "bg-surface/80 border-border-subtle hover:border-gray-600 opacity-80 hover:opacity-100"
                     }`}
                   >
-                    <div className="flex items-center justify-between mb-1">
-                      <span className="text-[10px] font-bold text-gray-200 truncate">
-                        {carShortName}
-                      </span>
-                      {isSelected && (
-                        <CheckCircle className="w-3.5 h-3.5 text-gold-400 flex-shrink-0" />
-                      )}
+                    <div>
+                      <div className="flex items-center justify-between mb-1.5">
+                        <span className="text-xs sm:text-sm font-black text-white truncate">
+                          {language === "ar" ? vehicle.name : vehicle.nameEn}
+                        </span>
+                        {isSelected && (
+                          <div className="w-4 h-4 rounded-full bg-gold-500 text-black flex items-center justify-center flex-shrink-0">
+                            <CheckCircle className="w-3.5 h-3.5" />
+                          </div>
+                        )}
+                      </div>
+
+                      <div className="relative aspect-[16/10] w-full rounded-xl overflow-hidden mb-2 bg-black border border-white/5">
+                        <Image
+                          src={vehicle.image}
+                          alt={vehicle.name}
+                          fill
+                          sizes="(max-width: 640px) 50vw, 300px"
+                          className="object-cover"
+                        />
+                      </div>
                     </div>
 
-                    <div className="relative aspect-[16/10] w-full rounded-lg overflow-hidden my-1 bg-black/50">
-                      <Image
-                        src={vehicle.image}
-                        alt={vehicle.name}
-                        fill
-                        sizes="170px"
-                        className="object-cover"
-                      />
-                    </div>
-
-                    <div className="flex items-center justify-between text-[9px] text-gray-400 mt-1">
-                      <span className="flex items-center gap-0.5">
-                        <Users className="w-2.5 h-2.5 text-gold-400" />
-                        <span>{vehicle.passengers}</span>
+                    <div className="space-y-1">
+                      <span className="text-[10px] text-gold-300 block font-bold">
+                        {vehicle.category}
                       </span>
-                      <span className="flex items-center gap-0.5">
-                        <Briefcase className="w-2.5 h-2.5 text-gold-400" />
-                        <span>{vehicle.luggage}</span>
-                      </span>
-                      <span className="text-gold-300 font-bold text-[9px]">
-                        {vehicle.baseStartingPrice} ج.م
-                      </span>
+                      <div className="flex items-center gap-3 text-[10px] text-gray-400">
+                        <span className="flex items-center gap-1">
+                          <Users className="w-3 h-3 text-gold-400" />
+                          <span>{vehicle.passengers} ركاب</span>
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <Briefcase className="w-3 h-3 text-gold-400" />
+                          <span>{vehicle.luggage} حقائب</span>
+                        </span>
+                      </div>
                     </div>
                   </div>
                 );
@@ -408,20 +397,20 @@ export default function BookingEngine({
             <div className="flex items-center justify-between">
               <label className="flex items-center gap-1 text-[11px] sm:text-xs font-bold text-gray-200">
                 <Calendar className="w-3.5 h-3.5 text-gold-400" />
-                <span>{t.booking.dateTimeLabel}</span>
+                <span>{language === "ar" ? "موعد الرحلة" : "Trip Schedule"}</span>
               </label>
 
               <button
                 type="button"
                 onClick={handleImmediateBookingToggle}
-                className={`text-[10px] sm:text-[11px] px-2.5 py-0.5 rounded-full font-bold flex items-center gap-1 transition-all ${
+                className={`text-[10px] sm:text-[11px] px-3 py-1 rounded-full font-bold flex items-center gap-1 transition-all ${
                   isImmediate
                     ? "bg-amber-500 text-black shadow"
                     : "bg-surface-secondary text-amber-300 border border-amber-500/30 hover:bg-amber-500/20"
                 }`}
               >
                 <Flame className="w-3 h-3 fill-current" />
-                <span>{t.booking.immediateBtn}</span>
+                <span>{language === "ar" ? "⚡ حجز فوري الآن" : "⚡ Immediate Trip"}</span>
               </button>
             </div>
 
@@ -448,13 +437,13 @@ export default function BookingEngine({
           {/* Passenger Information */}
           <div className="space-y-2.5 pt-1 border-t border-border-subtle/80">
             <h3 className="text-[11px] sm:text-xs font-bold text-gold-300">
-              {t.booking.passengerHeader}
+              {language === "ar" ? "بيانات المسافر" : "Passenger Info"}
             </h3>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3">
               <div>
                 <label className="block text-[10px] sm:text-[11px] text-gray-300 mb-1 font-medium">
-                  {t.booking.nameLabel} <span className="text-red-400">*</span>
+                  {language === "ar" ? "الاسم الكريم" : "Your Name"} <span className="text-red-400">*</span>
                 </label>
                 <input
                   type="text"
@@ -463,7 +452,7 @@ export default function BookingEngine({
                     setClientName(e.target.value);
                     if (errors.name) setErrors((prev) => ({ ...prev, name: undefined }));
                   }}
-                  placeholder={t.booking.namePlaceholder}
+                  placeholder={language === "ar" ? "مثال: أحمد محمد" : "e.g. Ahmed Mohamed"}
                   className={`w-full glass-input rounded-xl px-3 py-2 text-xs sm:text-sm text-white placeholder-gray-500 ${
                     errors.name ? "border-red-500" : ""
                   }`}
@@ -478,7 +467,7 @@ export default function BookingEngine({
 
               <div>
                 <label className="block text-[10px] sm:text-[11px] text-gray-300 mb-1 font-medium">
-                  {t.booking.phoneLabel} <span className="text-red-400">*</span>
+                  {language === "ar" ? "رقم الهاتف / الواتساب" : "Phone / WhatsApp"} <span className="text-red-400">*</span>
                 </label>
                 <input
                   type="tel"
@@ -488,7 +477,7 @@ export default function BookingEngine({
                     setClientPhone(e.target.value);
                     if (errors.phone) setErrors((prev) => ({ ...prev, phone: undefined }));
                   }}
-                  placeholder={t.booking.phonePlaceholder}
+                  placeholder="01012345678"
                   className={`w-full glass-input rounded-xl px-3 py-2 text-xs sm:text-sm text-white placeholder-gray-500 text-right ${
                     errors.phone ? "border-red-500" : ""
                   }`}
@@ -504,40 +493,34 @@ export default function BookingEngine({
 
             <div>
               <label className="block text-[10px] sm:text-[11px] text-gray-300 mb-1 font-medium">
-                {t.booking.notesLabel}
+                {language === "ar" ? "رقم الرحلة الجوية أو ملاحظات إضافية (اختياري)" : "Flight Number or Extra Notes (Optional)"}
               </label>
               <input
                 type="text"
                 value={flightOrNotes}
                 onChange={(e) => setFlightOrNotes(e.target.value)}
-                placeholder={t.booking.notesPlaceholder}
+                placeholder={language === "ar" ? "مثال: صالة 3 - وصول رحلة مصر للطيران" : "e.g. Terminal 3 arrival"}
                 className="w-full glass-input rounded-xl px-3 py-2 text-xs text-white placeholder-gray-500"
               />
             </div>
           </div>
 
-          {/* Live Fare Estimation */}
-          <div className="rounded-xl bg-gradient-to-r from-gold-500/10 via-[#181824] to-gold-500/5 p-3 sm:p-4 border border-gold-500/30 flex flex-col sm:flex-row items-center justify-between gap-2.5">
-            <div className="space-y-0.5 text-center sm:text-right w-full sm:w-auto">
-              <div className="flex items-center justify-center sm:justify-start gap-2">
-                <span className="text-[11px] text-gray-300 font-semibold">{t.booking.fareLabel}</span>
-                <span className="text-lg sm:text-2xl font-black gold-text-gradient font-mono">
-                  {estimatedFare.toLocaleString("ar-EG")} ج.م
+          {/* Simple Reassurance Strip (NO PRICES) */}
+          <div className="rounded-xl bg-gradient-to-r from-gold-500/10 via-[#181824] to-emerald-500/10 p-3 sm:p-3.5 border border-gold-500/30 flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-right">
+            <div className="flex items-center gap-2">
+              <ShieldCheck className="w-5 h-5 text-emerald-400 flex-shrink-0" />
+              <div>
+                <span className="text-xs font-bold text-white block">
+                  {language === "ar" ? "تأكيد فوري ومباشر مع الإدارة" : "Instant Confirmation with Management"}
                 </span>
-                {tripType === "ذهاب وعودة" && (
-                  <span className="text-[9px] bg-gold-500/20 text-gold-300 px-1.5 py-0.2 rounded border border-gold-500/40">
-                    {t.booking.roundTripIncluded}
-                  </span>
-                )}
+                <span className="text-[10px] text-gray-400">
+                  {language === "ar" ? "بدون أي مصاريف خفية • سيارة معقمة وسائق محترف" : "No hidden fees • Sanitized car & professional driver"}
+                </span>
               </div>
-              <p className="text-[10px] text-gray-400">
-                {t.booking.fareDisclaimer}
-              </p>
             </div>
-
-            <div className="flex items-center gap-1.5 text-[11px] text-gray-400">
-              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-              <span>{t.booking.paymentNote}</span>
+            <div className="flex items-center gap-1 text-[11px] text-gold-300 font-bold">
+              <Clock className="w-3.5 h-3.5" />
+              <span>{language === "ar" ? "رد خلال دقيقتين" : "Response in 2 mins"}</span>
             </div>
           </div>
 
@@ -550,12 +533,12 @@ export default function BookingEngine({
             {isSubmitting ? (
               <span className="flex items-center gap-2 text-xs sm:text-sm">
                 <span className="animate-spin w-4 h-4 border-2 border-black border-t-transparent rounded-full" />
-                <span>{t.booking.submittingBtn}</span>
+                <span>{language === "ar" ? "جاري تجهيز الحجز..." : "Preparing booking..."}</span>
               </span>
             ) : (
               <>
                 <WhatsAppIcon className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0" />
-                <span className="truncate">{t.booking.confirmBtn}</span>
+                <span className="truncate">{language === "ar" ? "تأكيد الحجز عبر واتساب مباشرة" : "Confirm Booking via WhatsApp"}</span>
                 <Send className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-black group-hover:-translate-x-1 transition-transform" />
               </>
             )}
@@ -565,17 +548,17 @@ export default function BookingEngine({
           <div className="flex items-center justify-center gap-2 sm:gap-4 text-[10px] sm:text-[11px] text-gray-400 pt-0.5 flex-wrap">
             <span className="flex items-center gap-1">
               <CheckCircle className="w-3 h-3 text-emerald-400" />
-              <span>{t.booking.twoMinReply}</span>
+              <span>{language === "ar" ? "تأكيد سريع 24/7" : "Fast confirmation 24/7"}</span>
             </span>
             <span>•</span>
             <span className="flex items-center gap-1">
               <CheckCircle className="w-3 h-3 text-emerald-400" />
-              <span>{t.booking.freeCancellation}</span>
+              <span>{language === "ar" ? "إلغاء مجاني" : "Free cancellation"}</span>
             </span>
             <span>•</span>
             <span className="flex items-center gap-1">
               <CheckCircle className="w-3 h-3 text-emerald-400" />
-              <span>01016518716</span>
+              <span dir="ltr">01016518716</span>
             </span>
           </div>
         </form>

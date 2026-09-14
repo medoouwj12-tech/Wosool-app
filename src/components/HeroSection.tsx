@@ -146,7 +146,7 @@ export default function HeroSection() {
             {/* Visual vehicle showcase container */}
             <div className="w-full md:w-1/2 relative aspect-[16/9] rounded-xl overflow-hidden border border-white/10 shadow-lg bg-black">
               <Image
-                src="https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=1200&q=80"
+                src="/images/mg-zs.jpeg"
                 alt="أسطول وصول الفاخر"
                 fill
                 priority
@@ -155,8 +155,8 @@ export default function HeroSection() {
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent flex flex-col justify-end p-2.5 sm:p-3">
                 <div className="flex items-center justify-between">
                   <div>
-                    <span className="text-xs font-bold text-white block">{t.hero.cardBadge}</span>
-                    <span className="text-[10px] text-gold-300">{t.hero.cardSub}</span>
+                    <span className="text-xs font-bold text-white block">إم جي ZS & فيات تيبو</span>
+                    <span className="text-[10px] text-gold-300">سيارات حديثة مكيفة للسفر</span>
                   </div>
                   <span className="text-[10px] sm:text-xs font-black px-2 py-0.5 rounded bg-gold-500 text-black shadow">
                     VIP Class

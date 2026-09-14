@@ -373,7 +373,7 @@ export default function AdminPage() {
                     <CheckCircle2 className="w-3.5 h-3.5" />
                     <span>متاحة للرحلات</span>
                   </span>
-                  <span className="font-mono text-gold-300 font-bold">{car.baseStartingPrice} ج.م</span>
+                  <span className="text-gray-400 font-bold">{car.passengers} ركاب • {car.luggage} حقائب</span>
                 </div>
               </div>
             ))}

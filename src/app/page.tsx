@@ -16,7 +16,7 @@ import PwaInstallPrompt from "@/components/PwaInstallPrompt";
 import Footer from "@/components/Footer";
 
 export default function HomePage() {
-  const [selectedVehicleId, setSelectedVehicleId] = useState<string>("toyota-corolla");
+  const [selectedVehicleId, setSelectedVehicleId] = useState<string>("mg-zs");
   const [selectedDestinationId, setSelectedDestinationId] = useState<string>("cairo_airport");
 
   const handleSelectVehicle = (vehicleId: string) => {

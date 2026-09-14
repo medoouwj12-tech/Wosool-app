@@ -34,10 +34,10 @@ export default function FaqSection() {
         : "You can pay in Cash directly to the chauffeur upon arrival, via instant bank transfer (InstaPay / Vodafone Cash), or via Visa and Mastercard.",
     },
     {
-      q: language === "ar" ? "هل الأسعار المعلنة شاملة البنزين ورسوم الطرق السريعة (الكارتات)؟" : "Do fares include fuel and highway road tolls?",
+      q: language === "ar" ? "هل المشوار شامل البنزين ورسوم الطرق السريعة (الكارتات)؟" : "Does the booking include fuel and highway tolls?",
       a: language === "ar"
-        ? "نعم بكل تأكيد! سياستنا قائمة على الشفافية التامة؛ السعر المتفق عليه شامل السيارة الخاصة بالسائق، استهلاك الوقود بالكامل، ورسوم بوابات الطرق السريعة (الكارتات)، بدون أي رسوم خفية أو مفاجآت."
-        : "Yes, 100%! All quoted prices are all-inclusive: private vehicle, chauffeur service, fuel, and all highway toll fees. No surprises.",
+        ? "نعم بكل تأكيد! سياستنا قائمة على الوضوح التام؛ رحلتك شاملة السيارة الخاصة بالسائق، استهلاك الوقود بالكامل، ورسوم بوابات الطرق السريعة (الكارتات)، بدون أي رسوم خفية أو مفاجآت."
+        : "Yes, 100%! All bookings are all-inclusive: private vehicle, chauffeur service, fuel, and all highway toll fees. No hidden fees.",
     },
     {
       q: language === "ar" ? "هل يمكن طلب سيارة بمقعد أطفال أو طلب محطة توقف في الطريق؟" : "Can I request a child safety seat or rest stops?",
