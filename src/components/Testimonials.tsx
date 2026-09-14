@@ -10,7 +10,7 @@ export default function Testimonials() {
   const reviews = [
     {
       name: language === "ar" ? "م. طارق عبد الحميد" : "Eng. Tarek Abdelhamid",
-      role: language === "ar" ? "رجل أعمال - رحلات متكررة لمطار القاهرة" : "Businessman - Frequent Cairo Airport Traveler",
+      role: language === "ar" ? "رجل أعمال - رحلات متكررة لمطار القاهرة" : "Businessman - Cairo Airport Traveler",
       rating: 5,
       date: language === "ar" ? "منذ أسبوع" : "1 week ago",
       comment: language === "ar"
@@ -38,50 +38,50 @@ export default function Testimonials() {
   ];
 
   return (
-    <section className="py-8 px-4 max-w-5xl mx-auto">
-      <div className="text-center mb-6">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-semibold mb-2">
+    <section className="py-6 px-3 sm:px-4 max-w-5xl mx-auto">
+      <div className="text-center mb-4 sm:mb-6">
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-[11px] sm:text-xs font-semibold mb-1.5">
           <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
           <span>{t.testimonials.badge}</span>
         </div>
-        <h2 className="text-2xl sm:text-3xl font-black text-white font-cairo">
+        <h2 className="text-xl sm:text-3xl font-black text-white font-cairo">
           {t.testimonials.title} <span className="gold-text-gradient">{t.testimonials.titleHighlight}</span>
         </h2>
-        <p className="text-xs sm:text-sm text-gray-400 mt-1">
+        <p className="text-[11px] sm:text-sm text-gray-400 mt-1">
           {t.testimonials.subtitle}
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4">
         {reviews.map((rev, idx) => (
           <div
             key={idx}
-            className="glass-card rounded-2xl p-5 border border-white/10 hover:border-gold-500/30 transition-all flex flex-col justify-between space-y-4"
+            className="glass-card rounded-2xl p-3.5 sm:p-5 border border-white/10 hover:border-gold-500/30 transition-all flex flex-col justify-between space-y-3"
           >
-            <div className="space-y-3">
+            <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-1 text-amber-400">
                   {[...Array(rev.rating)].map((_, s) => (
                     <Star key={s} className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
                   ))}
                 </div>
-                <Quote className="w-5 h-5 text-gold-500/30" />
+                <Quote className="w-4 h-4 text-gold-500/30" />
               </div>
 
-              <p className="text-xs sm:text-sm text-gray-300 leading-relaxed font-light">
+              <p className="text-xs text-gray-300 leading-relaxed font-light">
                 &ldquo;{rev.comment}&rdquo;
               </p>
             </div>
 
-            <div className="pt-3 border-t border-white/5 flex items-center justify-between">
+            <div className="pt-2.5 border-t border-white/5 flex items-center justify-between">
               <div>
-                <div className="flex items-center gap-1.5">
+                <div className="flex items-center gap-1">
                   <span className="text-xs font-bold text-white">{rev.name}</span>
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                  <CheckCircle2 className="w-3 h-3 text-emerald-400" />
                 </div>
                 <span className="text-[10px] text-gray-400 block">{rev.role}</span>
               </div>
-              <span className="text-[10px] text-gray-500 font-mono">{rev.date}</span>
+              <span className="text-[9px] text-gray-500 font-mono">{rev.date}</span>
             </div>
           </div>
         ))}

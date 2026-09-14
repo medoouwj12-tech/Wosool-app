@@ -25,57 +25,62 @@ export default function BottomNav() {
   };
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-40 bg-[#0C0C10]/95 backdrop-blur-2xl border-t border-border-subtle/80 pb-[env(safe-area-inset-bottom,8px)] pt-1.5 px-3">
-      <div className="max-w-lg mx-auto flex items-center justify-around relative">
+    <nav className="fixed bottom-0 left-0 right-0 z-40 bg-[#0C0C10]/95 backdrop-blur-2xl border-t border-border-subtle/80 pb-[env(safe-area-inset-bottom,6px)] pt-1 px-2">
+      <div className="max-w-md mx-auto flex items-center justify-between relative h-14">
+        {/* Home */}
         <button
           onClick={() => scrollTo("top", "home")}
-          className={`flex flex-col items-center gap-1 py-1 px-2 rounded-lg transition-colors ${
+          className={`flex-1 flex flex-col items-center justify-center py-1 rounded-lg transition-colors ${
             activeTab === "home" ? "text-gold-300 font-bold" : "text-gray-400 hover:text-gray-200"
           }`}
         >
-          <Home className="w-5 h-5" />
-          <span className="text-[10px]">{t.nav.home}</span>
+          <Home className="w-4 h-4 sm:w-5 sm:h-5" />
+          <span className="text-[10px] mt-0.5">{t.nav.home}</span>
         </button>
 
+        {/* Fleet */}
         <button
           onClick={() => scrollTo("fleet-section", "fleet")}
-          className={`flex flex-col items-center gap-1 py-1 px-2 rounded-lg transition-colors ${
+          className={`flex-1 flex flex-col items-center justify-center py-1 rounded-lg transition-colors ${
             activeTab === "fleet" ? "text-gold-300 font-bold" : "text-gray-400 hover:text-gray-200"
           }`}
         >
-          <Car className="w-5 h-5" />
-          <span className="text-[10px]">{t.nav.fleet}</span>
+          <Car className="w-4 h-4 sm:w-5 sm:h-5" />
+          <span className="text-[10px] mt-0.5">{t.nav.fleet}</span>
         </button>
 
-        <div className="relative -top-5">
+        {/* Big Center Golden Booking Action Button */}
+        <div className="flex-1 flex flex-col items-center justify-center relative -top-3">
           <button
             onClick={() => scrollTo("booking-section", "book")}
-            className="w-14 h-14 rounded-full gold-btn flex flex-col items-center justify-center shadow-gold-md hover:scale-105 transition-transform touch-press border-2 border-[#0A0A0C]"
+            className="w-12 h-12 sm:w-13 sm:h-13 rounded-full gold-btn flex items-center justify-center shadow-gold-md hover:scale-105 transition-transform touch-press border-2 border-[#0A0A0C]"
             aria-label={t.nav.book}
           >
-            <CalendarCheck className="w-6 h-6 text-black" />
+            <CalendarCheck className="w-5 h-5 sm:w-6 sm:h-6 text-black" />
           </button>
-          <span className="text-[10px] text-gold-300 font-black block text-center mt-1">
+          <span className="text-[9px] sm:text-[10px] text-gold-300 font-black block text-center mt-0.5">
             {t.nav.book}
           </span>
         </div>
 
+        {/* Routes */}
         <button
           onClick={() => scrollTo("routes-section", "routes")}
-          className={`flex flex-col items-center gap-1 py-1 px-2 rounded-lg transition-colors ${
+          className={`flex-1 flex flex-col items-center justify-center py-1 rounded-lg transition-colors ${
             activeTab === "routes" ? "text-gold-300 font-bold" : "text-gray-400 hover:text-gray-200"
           }`}
         >
-          <MapPin className="w-5 h-5" />
-          <span className="text-[10px]">{t.nav.routes}</span>
+          <MapPin className="w-4 h-4 sm:w-5 sm:h-5" />
+          <span className="text-[10px] mt-0.5">{t.nav.routes}</span>
         </button>
 
+        {/* Direct Call */}
         <button
           onClick={handleCall}
-          className="flex flex-col items-center gap-1 py-1 px-2 rounded-lg text-gray-400 hover:text-gold-300 transition-colors"
+          className="flex-1 flex flex-col items-center justify-center py-1 rounded-lg text-gray-400 hover:text-gold-300 transition-colors"
         >
-          <Phone className="w-5 h-5" />
-          <span className="text-[10px]">{t.nav.call}</span>
+          <Phone className="w-4 h-4 sm:w-5 sm:h-5" />
+          <span className="text-[10px] mt-0.5">{t.nav.call}</span>
         </button>
       </div>
     </nav>

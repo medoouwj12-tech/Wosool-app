@@ -48,21 +48,21 @@ export default function FaqSection() {
   ];
 
   return (
-    <section className="py-8 px-4 max-w-5xl mx-auto">
-      <div className="text-center mb-6">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-300 text-xs font-semibold mb-2">
+    <section className="py-6 px-3 sm:px-4 max-w-5xl mx-auto">
+      <div className="text-center mb-4 sm:mb-6">
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-300 text-[11px] sm:text-xs font-semibold mb-1.5">
           <HelpCircle className="w-3.5 h-3.5 text-gold-400" />
           <span>{t.faq.badge}</span>
         </div>
-        <h2 className="text-2xl sm:text-3xl font-black text-white font-cairo">
+        <h2 className="text-xl sm:text-3xl font-black text-white font-cairo">
           {t.faq.title} <span className="gold-text-gradient">{t.faq.titleHighlight}</span>
         </h2>
-        <p className="text-xs sm:text-sm text-gray-400 mt-1">
+        <p className="text-[11px] sm:text-sm text-gray-400 mt-1">
           {t.faq.subtitle}
         </p>
       </div>
 
-      <div className="space-y-3 max-w-3xl mx-auto">
+      <div className="space-y-2.5 max-w-3xl mx-auto">
         {faqs.map((faq, index) => {
           const isOpen = openIndex === index;
           return (
@@ -73,18 +73,18 @@ export default function FaqSection() {
               <button
                 type="button"
                 onClick={() => setOpenIndex(isOpen ? null : index)}
-                className="w-full p-4 text-right flex items-center justify-between gap-3 text-sm sm:text-base font-bold text-white hover:text-gold-300 transition-colors"
+                className="w-full p-3 sm:p-4 text-right flex items-center justify-between gap-2.5 text-xs sm:text-sm font-bold text-white hover:text-gold-300 transition-colors"
               >
                 <span>{faq.q}</span>
                 <ChevronDown
-                  className={`w-4 h-4 text-gold-400 flex-shrink-0 transition-transform duration-300 ${
+                  className={`w-3.5 h-3.5 text-gold-400 flex-shrink-0 transition-transform duration-300 ${
                     isOpen ? "rotate-180" : ""
                   }`}
                 />
               </button>
 
               {isOpen && (
-                <div className="px-4 pb-4 text-xs sm:text-sm text-gray-300 leading-relaxed border-t border-white/5 pt-3">
+                <div className="px-3 pb-3 text-xs text-gray-300 leading-relaxed border-t border-white/5 pt-2">
                   {faq.a}
                 </div>
               )}

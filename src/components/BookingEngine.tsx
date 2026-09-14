@@ -36,7 +36,6 @@ export default function BookingEngine({
 }: BookingEngineProps) {
   const { t, language } = useLanguage();
 
-  // Form State
   const [pickupArea, setPickupArea] = useState<string>("سموحة");
   const [customPickupAddress, setCustomPickupAddress] = useState<string>("");
   const [destinationId, setDestinationId] = useState<string>("cairo_airport");
@@ -52,7 +51,7 @@ export default function BookingEngine({
   const [tripTime, setTripTime] = useState<string>("10:00");
   const [isImmediate, setIsImmediate] = useState<boolean>(false);
 
-  const [vehicleId, setVehicleId] = useState<string>(selectedVehicleId || "sedan-comfort");
+  const [vehicleId, setVehicleId] = useState<string>(selectedVehicleId || "toyota-corolla");
   const [clientName, setClientName] = useState<string>("");
   const [clientPhone, setClientPhone] = useState<string>("");
   const [flightOrNotes, setFlightOrNotes] = useState<string>("");
@@ -68,7 +67,7 @@ export default function BookingEngine({
   }, [selectedDestinationId]);
 
   const selectedDest = DESTINATIONS.find((d) => d.id === destinationId) || DESTINATIONS[0];
-  const selectedCar = FLEET.find((f) => f.id === vehicleId) || FLEET[4];
+  const selectedCar = FLEET.find((f) => f.id === vehicleId) || FLEET[0];
 
   const calculateFare = () => {
     const baseRoutePrice = selectedDest.startingPrice;
@@ -144,7 +143,6 @@ export default function BookingEngine({
       .filter(Boolean)
       .join(" - ");
 
-    // Save into localStorage for Admin Dashboard
     try {
       saveBooking({
         clientName: clientName.trim(),
@@ -181,54 +179,54 @@ export default function BookingEngine({
   };
 
   return (
-    <section id="booking-section" className="py-6 px-4 max-w-5xl mx-auto scroll-mt-20">
+    <section id="booking-section" className="py-4 sm:py-6 px-3 sm:px-4 max-w-5xl mx-auto scroll-mt-16 sm:scroll-mt-20">
       {/* Section Header */}
-      <div className="text-center mb-6">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-300 text-xs font-semibold mb-2">
+      <div className="text-center mb-4 sm:mb-6">
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-300 text-[11px] sm:text-xs font-semibold mb-1.5">
           <Sparkles className="w-3.5 h-3.5 text-gold-400" />
           <span>{t.booking.badge}</span>
         </div>
-        <h2 className="text-2xl sm:text-3xl font-black text-white font-cairo">
+        <h2 className="text-xl sm:text-3xl font-black text-white font-cairo">
           {t.booking.title} <span className="gold-text-gradient">{t.booking.titleHighlight}</span>
         </h2>
-        <p className="text-xs sm:text-sm text-gray-400 mt-1 max-w-lg mx-auto">
+        <p className="text-[11px] sm:text-sm text-gray-400 mt-1 max-w-lg mx-auto">
           {t.booking.subtitle}
         </p>
       </div>
 
       {/* Main Glass Booking Panel */}
-      <div className="glass-panel rounded-2xl p-4 sm:p-6 border border-gold-500/30 shadow-2xl relative">
+      <div className="glass-panel rounded-2xl p-3.5 sm:p-6 border border-gold-500/30 shadow-2xl relative">
         {/* Step indicator pills */}
-        <div className="flex items-center justify-between border-b border-border-subtle/80 pb-4 mb-5 text-xs text-gray-400">
-          <div className="flex items-center gap-1.5 text-gold-300 font-bold">
-            <span className="w-5 h-5 rounded-full bg-gold-500 text-black flex items-center justify-center text-[11px] font-black">
+        <div className="flex items-center justify-between border-b border-border-subtle/80 pb-3 mb-4 text-[11px] sm:text-xs text-gray-400">
+          <div className="flex items-center gap-1 text-gold-300 font-bold">
+            <span className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-gold-500 text-black flex items-center justify-center text-[10px] sm:text-[11px] font-black">
               1
             </span>
-            <span>{t.booking.step1}</span>
+            <span className="truncate">{t.booking.step1}</span>
           </div>
-          <span className="h-0.5 w-6 bg-border-subtle" />
-          <div className="flex items-center gap-1.5 text-gold-300 font-bold">
-            <span className="w-5 h-5 rounded-full bg-gold-500 text-black flex items-center justify-center text-[11px] font-black">
+          <span className="h-0.5 w-4 sm:w-8 bg-border-subtle" />
+          <div className="flex items-center gap-1 text-gold-300 font-bold">
+            <span className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-gold-500 text-black flex items-center justify-center text-[10px] sm:text-[11px] font-black">
               2
             </span>
-            <span>{t.booking.step2}</span>
+            <span className="truncate">{t.booking.step2}</span>
           </div>
-          <span className="h-0.5 w-6 bg-border-subtle" />
-          <div className="flex items-center gap-1.5 text-gold-300 font-bold">
-            <span className="w-5 h-5 rounded-full bg-gold-500 text-black flex items-center justify-center text-[11px] font-black">
+          <span className="h-0.5 w-4 sm:w-8 bg-border-subtle" />
+          <div className="flex items-center gap-1 text-gold-300 font-bold">
+            <span className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-gold-500 text-black flex items-center justify-center text-[10px] sm:text-[11px] font-black">
               3
             </span>
-            <span>{t.booking.step3}</span>
+            <span className="truncate">{t.booking.step3}</span>
           </div>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-5">
+        <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
           {/* Trip Type Toggle */}
-          <div className="bg-surface-secondary/90 p-1.5 rounded-xl border border-border-subtle flex items-center">
+          <div className="bg-surface-secondary/90 p-1 rounded-xl border border-border-subtle flex items-center">
             <button
               type="button"
               onClick={() => setTripType("ذهاب فقط")}
-              className={`flex-1 py-2.5 rounded-lg text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-2 ${
+              className={`flex-1 py-2 sm:py-2.5 rounded-lg text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-1.5 ${
                 tripType === "ذهاب فقط"
                   ? "bg-gold-500 text-black shadow-gold-sm"
                   : "text-gray-300 hover:text-white"
@@ -239,29 +237,29 @@ export default function BookingEngine({
             <button
               type="button"
               onClick={() => setTripType("ذهاب وعودة")}
-              className={`flex-1 py-2.5 rounded-lg text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-2 relative ${
+              className={`flex-1 py-2 sm:py-2.5 rounded-lg text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-1.5 relative ${
                 tripType === "ذهاب وعودة"
                   ? "bg-gold-500 text-black shadow-gold-sm"
                   : "text-gray-300 hover:text-white"
               }`}
             >
               <span>{t.booking.roundTrip}</span>
-              <span className="text-[10px] bg-emerald-500 text-white font-black px-1.5 py-0.5 rounded shadow">
+              <span className="text-[9px] sm:text-[10px] bg-emerald-500 text-white font-black px-1.5 py-0.2 rounded shadow">
                 {t.booking.discountBadge}
               </span>
             </button>
           </div>
 
-          {/* Location Selection Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {/* Location Selection */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
             {/* Pickup */}
-            <div className="space-y-2">
-              <label className="flex items-center justify-between text-xs font-bold text-gray-200">
-                <span className="flex items-center gap-1.5">
-                  <MapPin className="w-4 h-4 text-gold-400" />
+            <div className="space-y-1.5">
+              <label className="flex items-center justify-between text-[11px] sm:text-xs font-bold text-gray-200">
+                <span className="flex items-center gap-1">
+                  <MapPin className="w-3.5 h-3.5 text-gold-400" />
                   <span>{t.booking.pickupLabel}</span>
                 </span>
-                <span className="text-[10px] text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/30">
+                <span className="text-[9px] text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/30">
                   {t.booking.doorstepBadge}
                 </span>
               </label>
@@ -270,7 +268,7 @@ export default function BookingEngine({
                 <select
                   value={pickupArea}
                   onChange={(e) => setPickupArea(e.target.value)}
-                  className="w-full glass-input rounded-xl px-3.5 py-3 text-sm text-white font-medium appearance-none cursor-pointer focus:ring-1 focus:ring-gold-500"
+                  className="w-full glass-input rounded-xl px-3 py-2.5 text-xs sm:text-sm text-white font-medium appearance-none cursor-pointer focus:ring-1 focus:ring-gold-500"
                 >
                   {ALEXANDRIA_PICKUP_AREAS.map((area) => (
                     <option key={area.id} value={area.name} className="bg-[#121218] text-white">
@@ -278,7 +276,7 @@ export default function BookingEngine({
                     </option>
                   ))}
                 </select>
-                <div className="absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400 text-xs">
+                <div className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400 text-xs">
                   ▼
                 </div>
               </div>
@@ -288,15 +286,15 @@ export default function BookingEngine({
                 value={customPickupAddress}
                 onChange={(e) => setCustomPickupAddress(e.target.value)}
                 placeholder={t.booking.customAddressPlaceholder}
-                className="w-full glass-input rounded-xl px-3.5 py-2 text-xs text-gray-200 placeholder-gray-500 focus:ring-1 focus:ring-gold-500"
+                className="w-full glass-input rounded-xl px-3 py-2 text-xs text-gray-200 placeholder-gray-500 focus:ring-1 focus:ring-gold-500"
               />
             </div>
 
             {/* Destination */}
-            <div className="space-y-2">
-              <label className="flex items-center justify-between text-xs font-bold text-gray-200">
-                <span className="flex items-center gap-1.5">
-                  <Navigation className="w-4 h-4 text-emerald-400" />
+            <div className="space-y-1.5">
+              <label className="flex items-center justify-between text-[11px] sm:text-xs font-bold text-gray-200">
+                <span className="flex items-center gap-1">
+                  <Navigation className="w-3.5 h-3.5 text-emerald-400" />
                   <span>{t.booking.destinationLabel}</span>
                 </span>
                 <span className="text-[10px] text-gold-300 font-mono">
@@ -308,7 +306,7 @@ export default function BookingEngine({
                 <select
                   value={destinationId}
                   onChange={(e) => setDestinationId(e.target.value)}
-                  className="w-full glass-input rounded-xl px-3.5 py-3 text-sm text-white font-medium appearance-none cursor-pointer focus:ring-1 focus:ring-gold-500"
+                  className="w-full glass-input rounded-xl px-3 py-2.5 text-xs sm:text-sm text-white font-medium appearance-none cursor-pointer focus:ring-1 focus:ring-gold-500"
                 >
                   <optgroup label="⭐ أشهر الوجهات والمطارات" className="bg-[#121218] text-gold-300 font-bold">
                     {DESTINATIONS.filter((d) => d.popular).map((dest) => (
@@ -325,79 +323,78 @@ export default function BookingEngine({
                     ))}
                   </optgroup>
                 </select>
-                <div className="absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400 text-xs">
+                <div className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400 text-xs">
                   ▼
                 </div>
               </div>
 
-              <div className="flex items-center justify-between text-[11px] text-gray-400 bg-surface-secondary/50 px-3 py-1.5 rounded-lg border border-white/5">
+              <div className="flex items-center justify-between text-[10px] sm:text-[11px] text-gray-400 bg-surface-secondary/50 px-2.5 py-1 rounded-lg border border-white/5">
                 <span>{t.booking.approxTime} <strong className="text-gray-200">{selectedDest.estimatedHours}</strong></span>
                 <span>{t.booking.distance} <strong className="text-gray-200">{selectedDest.distanceKm} km</strong></span>
               </div>
             </div>
           </div>
 
-          {/* Vehicle Selection */}
-          <div className="space-y-2.5 pt-1">
-            <label className="flex items-center justify-between text-xs font-bold text-gray-200">
-              <span className="flex items-center gap-1.5">
-                <Car className="w-4 h-4 text-gold-400" />
+          {/* Vehicle Selection - Mobile Touch Horizontal Swiper */}
+          <div className="space-y-1.5 pt-1">
+            <div className="flex items-center justify-between">
+              <label className="flex items-center gap-1 text-[11px] sm:text-xs font-bold text-gray-200">
+                <Car className="w-3.5 h-3.5 text-gold-400" />
                 <span>{t.booking.vehicleLabel}</span>
+              </label>
+              <span className="text-[10px] text-gold-300 font-medium">
+                (اسحب لاختيار السيارة ↔)
               </span>
-              <span
-                className="text-[11px] text-gold-300 underline cursor-pointer"
-                onClick={() => {
-                  const el = document.getElementById("fleet-section");
-                  if (el) el.scrollIntoView({ behavior: "smooth" });
-                }}
-              >
-                {t.booking.fleetDetailsLink}
-              </span>
-            </label>
+            </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
+            {/* Horizontal Swipable Car Carousel */}
+            <div className="flex gap-2 sm:gap-2.5 overflow-x-auto pb-2 scrollbar-none snap-x -mx-1 px-1">
               {FLEET.map((vehicle) => {
                 const isSelected = vehicle.id === vehicleId;
+                const carShortName = language === "ar"
+                  ? vehicle.name.replace(/\(.*?\)/g, "").trim()
+                  : vehicle.nameEn.split(" ")[0] + " " + (vehicle.nameEn.split(" ")[1] || "");
+
                 return (
                   <div
                     key={vehicle.id}
                     onClick={() => setVehicleId(vehicle.id)}
-                    className={`cursor-pointer rounded-xl p-2.5 transition-all duration-200 border text-right relative overflow-hidden ${
+                    className={`cursor-pointer flex-shrink-0 w-[145px] sm:w-[170px] snap-start rounded-xl p-2 transition-all duration-200 border text-right relative overflow-hidden ${
                       isSelected
-                        ? "bg-gradient-to-b from-[#1f1f2e] to-[#121218] border-gold-400 shadow-gold-sm ring-1 ring-gold-400/50"
-                        : "bg-surface/70 border-border-subtle hover:border-gray-600"
+                        ? "bg-gradient-to-b from-[#222234] to-[#14141e] border-gold-400 shadow-gold-sm ring-1 ring-gold-400/50"
+                        : "bg-surface/80 border-border-subtle hover:border-gray-600"
                     }`}
                   >
-                    <div className="flex items-center justify-between mb-1.5">
-                      <span className="text-[10px] font-semibold text-gray-300 truncate max-w-[110px]">
-                        {language === "ar" ? vehicle.name.split(" ")[0] + " " + vehicle.name.split(" ")[1] : vehicle.nameEn.split(" ")[0] + " " + vehicle.nameEn.split(" ")[1]}
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="text-[10px] font-bold text-gray-200 truncate">
+                        {carShortName}
                       </span>
                       {isSelected && (
-                        <CheckCircle className="w-4 h-4 text-gold-400 flex-shrink-0" />
+                        <CheckCircle className="w-3.5 h-3.5 text-gold-400 flex-shrink-0" />
                       )}
                     </div>
 
-                    <div className="relative aspect-[16/9] w-full rounded-lg overflow-hidden my-1 bg-black/40">
+                    <div className="relative aspect-[16/10] w-full rounded-lg overflow-hidden my-1 bg-black/50">
                       <Image
                         src={vehicle.image}
                         alt={vehicle.name}
                         fill
-                        sizes="(max-width: 640px) 50vw, 33vw"
+                        sizes="170px"
                         className="object-cover"
                       />
                     </div>
 
-                    <div className="flex items-center justify-between text-[10px] text-gray-400 mt-1">
+                    <div className="flex items-center justify-between text-[9px] text-gray-400 mt-1">
                       <span className="flex items-center gap-0.5">
-                        <Users className="w-3 h-3 text-gold-400" />
+                        <Users className="w-2.5 h-2.5 text-gold-400" />
                         <span>{vehicle.passengers}</span>
                       </span>
                       <span className="flex items-center gap-0.5">
-                        <Briefcase className="w-3 h-3 text-gold-400" />
+                        <Briefcase className="w-2.5 h-2.5 text-gold-400" />
                         <span>{vehicle.luggage}</span>
                       </span>
-                      <span className="text-gold-300 font-bold">
-                        {vehicle.category.split(" ")[0]}
+                      <span className="text-gold-300 font-bold text-[9px]">
+                        {vehicle.baseStartingPrice} ج.م
                       </span>
                     </div>
                   </div>
@@ -407,35 +404,35 @@ export default function BookingEngine({
           </div>
 
           {/* Date & Time Selection */}
-          <div className="space-y-2 pt-1">
+          <div className="space-y-1.5 pt-1">
             <div className="flex items-center justify-between">
-              <label className="flex items-center gap-1.5 text-xs font-bold text-gray-200">
-                <Calendar className="w-4 h-4 text-gold-400" />
+              <label className="flex items-center gap-1 text-[11px] sm:text-xs font-bold text-gray-200">
+                <Calendar className="w-3.5 h-3.5 text-gold-400" />
                 <span>{t.booking.dateTimeLabel}</span>
               </label>
 
               <button
                 type="button"
                 onClick={handleImmediateBookingToggle}
-                className={`text-[11px] px-2.5 py-1 rounded-full font-bold flex items-center gap-1 transition-all ${
+                className={`text-[10px] sm:text-[11px] px-2.5 py-0.5 rounded-full font-bold flex items-center gap-1 transition-all ${
                   isImmediate
                     ? "bg-amber-500 text-black shadow"
                     : "bg-surface-secondary text-amber-300 border border-amber-500/30 hover:bg-amber-500/20"
                 }`}
               >
-                <Flame className="w-3.5 h-3.5 fill-current" />
+                <Flame className="w-3 h-3 fill-current" />
                 <span>{t.booking.immediateBtn}</span>
               </button>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
               <input
                 type="date"
                 value={tripDate}
                 disabled={isImmediate}
                 min={new Date().toISOString().split("T")[0]}
                 onChange={(e) => setTripDate(e.target.value)}
-                className="w-full glass-input rounded-xl px-3.5 py-2.5 text-sm text-white font-medium focus:ring-1 focus:ring-gold-500 disabled:opacity-50"
+                className="w-full glass-input rounded-xl px-3 py-2 text-xs sm:text-sm text-white font-medium focus:ring-1 focus:ring-gold-500 disabled:opacity-50"
               />
 
               <input
@@ -443,20 +440,20 @@ export default function BookingEngine({
                 value={tripTime}
                 disabled={isImmediate}
                 onChange={(e) => setTripTime(e.target.value)}
-                className="w-full glass-input rounded-xl px-3.5 py-2.5 text-sm text-white font-medium focus:ring-1 focus:ring-gold-500 disabled:opacity-50"
+                className="w-full glass-input rounded-xl px-3 py-2 text-xs sm:text-sm text-white font-medium focus:ring-1 focus:ring-gold-500 disabled:opacity-50"
               />
             </div>
           </div>
 
           {/* Passenger Information */}
-          <div className="space-y-3 pt-1 border-t border-border-subtle/80">
-            <h3 className="text-xs font-bold text-gold-300">
+          <div className="space-y-2.5 pt-1 border-t border-border-subtle/80">
+            <h3 className="text-[11px] sm:text-xs font-bold text-gold-300">
               {t.booking.passengerHeader}
             </h3>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3">
               <div>
-                <label className="block text-[11px] text-gray-300 mb-1 font-medium">
+                <label className="block text-[10px] sm:text-[11px] text-gray-300 mb-1 font-medium">
                   {t.booking.nameLabel} <span className="text-red-400">*</span>
                 </label>
                 <input
@@ -467,12 +464,12 @@ export default function BookingEngine({
                     if (errors.name) setErrors((prev) => ({ ...prev, name: undefined }));
                   }}
                   placeholder={t.booking.namePlaceholder}
-                  className={`w-full glass-input rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-gray-500 ${
+                  className={`w-full glass-input rounded-xl px-3 py-2 text-xs sm:text-sm text-white placeholder-gray-500 ${
                     errors.name ? "border-red-500" : ""
                   }`}
                 />
                 {errors.name && (
-                  <p className="text-[11px] text-red-400 mt-1 flex items-center gap-1">
+                  <p className="text-[10px] text-red-400 mt-1 flex items-center gap-1">
                     <AlertCircle className="w-3 h-3" />
                     <span>{errors.name}</span>
                   </p>
@@ -480,7 +477,7 @@ export default function BookingEngine({
               </div>
 
               <div>
-                <label className="block text-[11px] text-gray-300 mb-1 font-medium">
+                <label className="block text-[10px] sm:text-[11px] text-gray-300 mb-1 font-medium">
                   {t.booking.phoneLabel} <span className="text-red-400">*</span>
                 </label>
                 <input
@@ -492,12 +489,12 @@ export default function BookingEngine({
                     if (errors.phone) setErrors((prev) => ({ ...prev, phone: undefined }));
                   }}
                   placeholder={t.booking.phonePlaceholder}
-                  className={`w-full glass-input rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-gray-500 text-right ${
+                  className={`w-full glass-input rounded-xl px-3 py-2 text-xs sm:text-sm text-white placeholder-gray-500 text-right ${
                     errors.phone ? "border-red-500" : ""
                   }`}
                 />
                 {errors.phone && (
-                  <p className="text-[11px] text-red-400 mt-1 flex items-center gap-1">
+                  <p className="text-[10px] text-red-400 mt-1 flex items-center gap-1">
                     <AlertCircle className="w-3 h-3" />
                     <span>{errors.phone}</span>
                   </p>
@@ -506,7 +503,7 @@ export default function BookingEngine({
             </div>
 
             <div>
-              <label className="block text-[11px] text-gray-300 mb-1 font-medium">
+              <label className="block text-[10px] sm:text-[11px] text-gray-300 mb-1 font-medium">
                 {t.booking.notesLabel}
               </label>
               <input
@@ -514,71 +511,71 @@ export default function BookingEngine({
                 value={flightOrNotes}
                 onChange={(e) => setFlightOrNotes(e.target.value)}
                 placeholder={t.booking.notesPlaceholder}
-                className="w-full glass-input rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-gray-500"
+                className="w-full glass-input rounded-xl px-3 py-2 text-xs text-white placeholder-gray-500"
               />
             </div>
           </div>
 
           {/* Live Fare Estimation */}
-          <div className="rounded-xl bg-gradient-to-r from-gold-500/10 via-[#181824] to-gold-500/5 p-4 border border-gold-500/30 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="space-y-1 text-center sm:text-right">
+          <div className="rounded-xl bg-gradient-to-r from-gold-500/10 via-[#181824] to-gold-500/5 p-3 sm:p-4 border border-gold-500/30 flex flex-col sm:flex-row items-center justify-between gap-2.5">
+            <div className="space-y-0.5 text-center sm:text-right w-full sm:w-auto">
               <div className="flex items-center justify-center sm:justify-start gap-2">
-                <span className="text-xs text-gray-300 font-semibold">{t.booking.fareLabel}</span>
-                <span className="text-xl sm:text-2xl font-black gold-text-gradient font-mono">
+                <span className="text-[11px] text-gray-300 font-semibold">{t.booking.fareLabel}</span>
+                <span className="text-lg sm:text-2xl font-black gold-text-gradient font-mono">
                   {estimatedFare.toLocaleString("ar-EG")} ج.م
                 </span>
                 {tripType === "ذهاب وعودة" && (
-                  <span className="text-[10px] bg-gold-500/20 text-gold-300 px-2 py-0.5 rounded border border-gold-500/40">
+                  <span className="text-[9px] bg-gold-500/20 text-gold-300 px-1.5 py-0.2 rounded border border-gold-500/40">
                     {t.booking.roundTripIncluded}
                   </span>
                 )}
               </div>
-              <p className="text-[11px] text-gray-400">
+              <p className="text-[10px] text-gray-400">
                 {t.booking.fareDisclaimer}
               </p>
             </div>
 
-            <div className="flex items-center gap-2 text-xs text-gray-400">
-              <ShieldCheck className="w-4 h-4 text-emerald-400" />
+            <div className="flex items-center gap-1.5 text-[11px] text-gray-400">
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
               <span>{t.booking.paymentNote}</span>
             </div>
           </div>
 
-          {/* WhatsApp Direct Submit Button with Official Icon */}
+          {/* WhatsApp Direct Submit Button */}
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full gold-btn py-4 px-6 rounded-xl font-extrabold text-base sm:text-lg flex items-center justify-center gap-3 shadow-gold-md hover:shadow-gold-lg transition-all touch-press group"
+            className="w-full gold-btn py-3 sm:py-4 px-4 sm:px-6 rounded-xl font-extrabold text-sm sm:text-lg flex items-center justify-center gap-2.5 shadow-gold-md hover:shadow-gold-lg transition-all touch-press group"
           >
             {isSubmitting ? (
-              <span className="flex items-center gap-2">
-                <span className="animate-spin w-5 h-5 border-2 border-black border-t-transparent rounded-full" />
+              <span className="flex items-center gap-2 text-xs sm:text-sm">
+                <span className="animate-spin w-4 h-4 border-2 border-black border-t-transparent rounded-full" />
                 <span>{t.booking.submittingBtn}</span>
               </span>
             ) : (
               <>
-                <WhatsAppIcon className="w-6 h-6 flex-shrink-0" />
-                <span>{t.booking.confirmBtn}</span>
-                <Send className="w-4 h-4 text-black group-hover:-translate-x-1 transition-transform" />
+                <WhatsAppIcon className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0" />
+                <span className="truncate">{t.booking.confirmBtn}</span>
+                <Send className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-black group-hover:-translate-x-1 transition-transform" />
               </>
             )}
           </button>
 
           {/* Guarantee Footer */}
-          <div className="flex items-center justify-center gap-4 text-[11px] text-gray-400 pt-1 flex-wrap">
+          <div className="flex items-center justify-center gap-2 sm:gap-4 text-[10px] sm:text-[11px] text-gray-400 pt-0.5 flex-wrap">
             <span className="flex items-center gap-1">
-              <CheckCircle className="w-3.5 h-3.5 text-emerald-400" />
+              <CheckCircle className="w-3 h-3 text-emerald-400" />
               <span>{t.booking.twoMinReply}</span>
             </span>
             <span>•</span>
             <span className="flex items-center gap-1">
-              <CheckCircle className="w-3.5 h-3.5 text-emerald-400" />
+              <CheckCircle className="w-3 h-3 text-emerald-400" />
               <span>{t.booking.freeCancellation}</span>
             </span>
             <span>•</span>
             <span className="flex items-center gap-1">
-              <CheckCircle className="w-3.5 h-3.5 text-emerald-400" />
-              <span>{t.booking.directLine}</span>
+              <CheckCircle className="w-3 h-3 text-emerald-400" />
+              <span>01016518716</span>
             </span>
           </div>
         </form>

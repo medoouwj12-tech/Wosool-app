@@ -13,15 +13,15 @@ export default function FloatingContact() {
   };
 
   return (
-    <div className="fixed bottom-20 left-4 z-30 flex flex-col gap-2">
+    <div className="fixed bottom-16 sm:bottom-20 left-3 sm:left-4 z-30 flex flex-col gap-2">
       <button
         onClick={handleWhatsApp}
         aria-label="تواصل فوري عبر واتساب"
-        className="relative p-3 rounded-full bg-[#25D366] text-white shadow-xl hover:bg-[#20bd5a] transition-all hover:scale-110 touch-press group border border-white/20"
+        className="relative w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-[#25D366] text-white shadow-xl hover:bg-[#20bd5a] transition-all hover:scale-105 touch-press flex items-center justify-center border border-white/20"
       >
-        <span className="animate-ping absolute top-0 right-0 h-3.5 w-3.5 rounded-full bg-[#25D366] opacity-75" />
-        <span className="absolute top-0 right-0 h-3.5 w-3.5 rounded-full bg-[#25D366] border-2 border-white" />
-        <WhatsAppIcon className="w-7 h-7" />
+        <span className="animate-ping absolute top-0 right-0 h-3 w-3 rounded-full bg-[#25D366] opacity-75" />
+        <span className="absolute top-0 right-0 h-3 w-3 rounded-full bg-[#25D366] border border-white" />
+        <WhatsAppIcon className="w-6 h-6" />
       </button>
     </div>
   );
