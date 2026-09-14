@@ -83,12 +83,16 @@ export default function Footer() {
 
         <div className="pt-4 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-2.5 text-[10px] sm:text-[11px] text-gray-500 text-center sm:text-right">
           <p>© {new Date().getFullYear()} {t.brand.tagline}. {t.footer.allRightsReserved}</p>
-          <div className="flex items-center gap-2.5 text-gray-400">
+          <div className="flex items-center gap-2.5 text-gray-400 flex-wrap justify-center">
+            <Link href="/offers" className="text-gold-400 hover:text-gold-300 font-semibold transition-colors">
+              🎁 العروض والباقات
+            </Link>
+            <span className="w-1 h-1 rounded-full bg-gray-600" />
             <Link href="/admin" className="text-gray-500 hover:text-gold-300 flex items-center gap-1 transition-colors">
               <Shield className="w-3 h-3" />
-              <span>لوحة الإدارة (Admin)</span>
+              <span>الإدارة</span>
             </Link>
-            <span className="w-1 h-1 rounded-full bg-gold-400" />
+            <span className="w-1 h-1 rounded-full bg-gray-600" />
             <span>{t.footer.luxuryPwa}</span>
           </div>
         </div>

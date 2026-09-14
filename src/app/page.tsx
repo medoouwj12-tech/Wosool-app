@@ -9,13 +9,14 @@ import PopularRoutes from "@/components/PopularRoutes";
 import VipAmenities from "@/components/VipAmenities";
 import Testimonials from "@/components/Testimonials";
 import FaqSection from "@/components/FaqSection";
+import ServiceAreas from "@/components/ServiceAreas";
 import BottomNav from "@/components/BottomNav";
 import FloatingContact from "@/components/FloatingContact";
 import PwaInstallPrompt from "@/components/PwaInstallPrompt";
 import Footer from "@/components/Footer";
 
 export default function HomePage() {
-  const [selectedVehicleId, setSelectedVehicleId] = useState<string>("sedan-comfort");
+  const [selectedVehicleId, setSelectedVehicleId] = useState<string>("toyota-corolla");
   const [selectedDestinationId, setSelectedDestinationId] = useState<string>("cairo_airport");
 
   const handleSelectVehicle = (vehicleId: string) => {
@@ -45,6 +46,9 @@ export default function HomePage() {
 
       {/* Popular Intercity Routes */}
       <PopularRoutes onSelectDestination={handleSelectDestination} />
+
+      {/* Egypt Service Areas Coverage Map */}
+      <ServiceAreas />
 
       {/* VIP Amenities & Features */}
       <VipAmenities />

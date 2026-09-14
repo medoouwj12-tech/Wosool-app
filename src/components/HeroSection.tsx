@@ -1,7 +1,8 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import {
   Car,
@@ -10,8 +11,28 @@ import {
   ArrowLeft,
   ArrowRight,
   CheckCircle2,
+  BadgePercent,
 } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
+
+function useCountUp(target: number, duration = 1800) {
+  const [count, setCount] = useState(0);
+  const ref = useRef<boolean>(false);
+  useEffect(() => {
+    if (ref.current) return;
+    ref.current = true;
+    const start = Date.now();
+    const tick = () => {
+      const elapsed = Date.now() - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.floor(eased * target));
+      if (progress < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }, [target, duration]);
+  return count;
+}
 
 export default function HeroSection() {
   const { t, language } = useLanguage();
@@ -31,6 +52,10 @@ export default function HeroSection() {
   };
 
   const ArrowIcon = language === "ar" ? ArrowLeft : ArrowRight;
+
+  const tripsCount = useCountUp(5200, 2000);
+  const ratingVal = useCountUp(49, 1500); // will show as 4.9
+  const punctualVal = useCountUp(99, 1800);
 
   return (
     <section className="relative overflow-hidden pt-2 pb-6 px-3 sm:px-4 w-full">
@@ -142,7 +167,7 @@ export default function HeroSection() {
           </div>
         </motion.div>
 
-        {/* Live Trust & Performance Stats - Mobile Optimized 2x2 */}
+        {/* Live Trust & Performance Stats - Animated Counters */}
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
@@ -151,14 +176,16 @@ export default function HeroSection() {
         >
           <div className="glass-panel rounded-xl p-2 sm:p-2.5 border border-border-subtle">
             <span className="text-base sm:text-xl font-black gold-text-gradient block font-mono">
-              {t.hero.statsTrips}
+              {tripsCount.toLocaleString("ar-EG")}+
             </span>
             <span className="text-[10px] sm:text-[11px] text-gray-400">{t.hero.statsTripsLabel}</span>
           </div>
 
           <div className="glass-panel rounded-xl p-2 sm:p-2.5 border border-border-subtle">
             <div className="flex items-center justify-center gap-1">
-              <span className="text-base sm:text-xl font-black text-white font-mono">{t.hero.statsRating}</span>
+              <span className="text-base sm:text-xl font-black text-white font-mono">
+                {(ratingVal / 10).toFixed(1)}
+              </span>
               <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
             </div>
             <span className="text-[10px] sm:text-[11px] text-gray-400">{t.hero.statsRatingLabel}</span>
@@ -166,7 +193,7 @@ export default function HeroSection() {
 
           <div className="glass-panel rounded-xl p-2 sm:p-2.5 border border-border-subtle">
             <span className="text-base sm:text-xl font-black text-emerald-400 block font-mono">
-              {t.hero.statsPunctual}
+              {punctualVal}%
             </span>
             <span className="text-[10px] sm:text-[11px] text-gray-400">{t.hero.statsPunctualLabel}</span>
           </div>
@@ -177,6 +204,27 @@ export default function HeroSection() {
             </span>
             <span className="text-[10px] sm:text-[11px] text-gray-400">{t.hero.statsSupportLabel}</span>
           </div>
+        </motion.div>
+
+        {/* Offers Promo Strip */}
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.45 }}
+          className="mt-3"
+        >
+          <Link
+            href="/offers"
+            className="flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-gradient-to-r from-gold-500/10 via-amber-500/5 to-transparent border border-gold-500/25 hover:border-gold-500/50 transition-all group"
+          >
+            <div className="flex items-center gap-2">
+              <BadgePercent className="w-4 h-4 text-gold-400 flex-shrink-0" />
+              <span className="text-[11px] font-bold text-gold-200">
+                {language === "ar" ? "🎁 عروض وباقات حصرية — وفّر حتى 20% على رحلتك!" : "🎁 Exclusive Packages — Save up to 20% on your trip!"}
+              </span>
+            </div>
+            <ArrowIcon className="w-3.5 h-3.5 text-gold-400 group-hover:translate-x-[-2px] transition-transform flex-shrink-0" />
+          </Link>
         </motion.div>
       </div>
     </section>
